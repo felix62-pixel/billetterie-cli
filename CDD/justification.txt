@@ -1,0 +1,6 @@
+La séparation entre VENTE et TICKET permet :
+- une vente multiple
+-un suivi comptable clair
+-des statistiques fiables
+
+La table ANNULATION est séparée pour assurer la traçabilité.

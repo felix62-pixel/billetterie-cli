@@ -1,0 +1,10 @@
+iduser → (nom, login, rôle)
+idvente → (date_vente, montant)
+numero → (date_ticket, statut, prix)
+idAnnulation → (date_annulation, motif)
+
+# LES RELATIONS
+
+UTILISATEUR effectue VENTE (1,n)
+VENTE contient TICKET (1,n)
+TICKET peut donner ANNULATION (0,1)

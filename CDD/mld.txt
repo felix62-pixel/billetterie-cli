@@ -1,0 +1,5 @@
+UTILISATEUR (iduser PK, nom, login, rôle, mot_de_passe)
+VENTE(idvente PK, date_vente, montant, iduser FK)
+TICKET(numero PK, date_ticket, statut, prix, idvente FK)
+ANNULATION (idAnnulation PK, date_annulation, motif, numero FK)
+
