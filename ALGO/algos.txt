@@ -1,0 +1,117 @@
+# Génération d'un numéro de ticket unique : TCK_YYYYYMMDD_XXXX
+
+ALGORITHME GenererNumeroTicket
+ VAR
+
+      dateFormate, suffixe : chaine de caractère
+
+Début
+    dateFormatée ← formater(dateCourante, "YYYYMMDD")
+    compteur ← nombre de tickets créés à la dateCourante
+    compteur ← compteur + 1
+    suffixe ← formater(compteur sur 4 chiffres)
+    numeroTicket ← "TCK-" + dateFormatée + "-" + suffixe
+    Retourner numeroTicket
+Fin.
+
+# Controle des droits d'utilisateurs
+
+ALGORITHME VerifierDroits
+
+VAR
+
+   utilisateur, action : chaine de caractère
+   autorisation (VRAI ou FAUX) : booléen 
+
+Début
+    SI utilisateur.actif = FAUX ALORS
+        Retourner FAUX
+    FIN SI
+
+    SI action = "Vente" ET utilisateur.role ≠ "CAISSIER" ALORS
+        Retourner FAUX
+    FIN SI
+
+    SI action = "Gestion utilisateurs" ET utilisateur.role ≠ "ADMIN" ALORS
+        Retourner FAUX
+    FIN SI
+
+    Retourner VRAI
+Fin.
+
+# Gestion transactionnelle d'une vente
+
+ALGORITHME EffectuerVente
+VAR
+
+   total, ticket.prix : entier
+
+Début
+  **DébuterTransaction**
+
+  **Créer une nouvelle vente**
+    total ← 0
+
+    POUR chaque ticket dans listeTickets FAIRE
+        Générer numéro de ticket
+        Enregistrer le ticket
+        total ← total + ticket.prix
+    FIN POUR
+
+**Mettre à jour le montant total de la vente**
+
+    SI aucune erreur ALORS
+        ValiderTransaction
+        Retourner "Vente réussie"
+    SINON
+        AnnulerTransaction
+        Retourner "Vente annulée"
+    FIN SI
+Fin
+
+
+# Annulation sécurisé d'un ticket
+
+ALGORITHME AnnulerTicket
+VAR
+
+  ticket.statut : chaine de caractère
+
+Début
+    SI ticket n’existe pas ALORS
+        Retourner "Ticket inexistant"
+    FIN SI
+
+    SI ticket.statut ≠ "VALIDE" ALORS
+        Retourner "Annulation impossible"
+    FIN SI
+    SI ticket.statut =  "ANNULE" ALORS
+
+    Retourner "Ticket annulé avec succès"
+   FIN SI
+
+Fin
+
+#Calcul les indicateurs statistiques
+
+ALGORITHME CalculerStatistiques
+  VAR
+
+chiffre d’affaires, vente : float
+
+ticketsVendus , ticketsAnnules, totalVendus : entiers
+
+
+Début
+    ventes ← récupérer les ventes sur la période
+    totalVentes ← nombre de ventes
+    chiffreAffaires ← somme des montants des ventes
+
+    ticketsVendus ← nombre de tickets valides
+    ticketsAnnules ← nombre de tickets annulés
+
+    Afficher les indicateurs
+Fin
+
+
+
