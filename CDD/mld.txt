@@ -1,5 +1,6 @@
-UTILISATEUR (iduser PK, nom, login, rôle, mot_de_passe)
-VENTE(idvente PK, date_vente, montant, iduser FK)
-TICKET(numero PK, date_ticket, statut, prix, idvente FK)
-ANNULATION (idAnnulation PK, date_annulation, motif, numero FK)
-
+Utilisateur (idUser PK, nom, mot_de_passe, role)
+Caisse(idCaisse PK, etat, numero, idUser FK)
+Client(codeClient PK, nomClient, email)
+Vente(idVente PK, dateVente, montant, idUser FK, idCaisse FK, codeClient FK)
+Reservation(id PK, dateR, heure, nombresTickets, codeClient FK)
+Tickets(idTickets PK, date, statu, prix, idVente FK, idReservation)

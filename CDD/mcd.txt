@@ -1,10 +1,18 @@
-iduser → (nom, login, rôle)
-idvente → (date_vente, montant)
-numero → (date_ticket, statut, prix)
-idAnnulation → (date_annulation, motif)
+idUser → (nom, motDePasse, role)
+idCaisse → (etat, numero)
+codeClient → (nomClient, email)
+idVente → (dateVente, montant)
+id → (dateR, heure, nombreTickets)
+idTickets → (date, statut, prix);
 
-# LES RELATIONS
+#cardinalités
 
-UTILISATEUR effectue VENTE (1,n)
-VENTE contient TICKET (1,n)
-TICKET peut donner ANNULATION (0,1)
+utilisateur ..(1)..Gérer..(1)...caisse
+utilisateur...(1)..Impliquer..(0..*) Vente
+Vente ..(0..*).....(1)..caisse
+client..(1)..Effectuer....(0..*)..Vente
+client..(1)..Commander...(0..*)..tickets
+Vente ..(1)....(1..*)...tickets
+tickets..(1..*)....(1)...Reservation
+client..(1).....(0..*)...Resrevation
+
